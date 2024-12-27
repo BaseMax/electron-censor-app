@@ -1,7 +1,11 @@
-import { app, BrowserWindow, ipcMain } from 'electron';
-import path from 'path';
 import fs from 'fs';
-import { glob } from 'glob';
+import path from 'path';
+import { app, BrowserWindow, ipcMain } from 'electron';
+
+const filesToRead = [
+  path.join(__dirname, 'public/words/persian.txt'),
+  path.join(__dirname, 'public/words/english.txt'),
+];
 
 let mainWindow: BrowserWindow | null;
 
@@ -24,9 +28,12 @@ app.whenReady().then(() => {
 
   ipcMain.handle('load-words', async () => {
     try {
-        const wordsPath = path.join(__dirname, '/public/words/');
-        console.log(wordsPath);
+      const wordsPath = path.join(__dirname, 'public/words');
+      console.log('Words Path:', wordsPath);
       const words = await loadWordsFromDirectory(wordsPath);
+
+      const wordExists = words.includes('کص');
+      console.log('Does "کص" exist in the words?', wordExists);
       return words;
     } catch (error: any) {
       return { error: error.message };
@@ -36,22 +43,18 @@ app.whenReady().then(() => {
 
 async function loadWordsFromDirectory(directory: string) {
   try {
-    const filePath = path.join(directory, '*.txt');
-    console.log(filePath);
-    const files = await glob(filePath);
-    console.log(files);
+    console.log('Directory Path:', directory);
+    
     const words: string[] = [];
-    for (const file of files) {
-        console.log("File: " + file);
-      const fileContent = fs.readFileSync(file, 'utf-8');
-      console.log("File Content: " + fileContent);
-      words.push(...fileContent.split('\n').map((line) => line.trim()).filter(Boolean));
+    for (const file of filesToRead) {
+      const fileContent = await fs.readFileSync(file, 'utf-8');
+      
+      words.push(...fileContent.split('\n').map(line => line.trim()).filter(Boolean));
     }
 
-    console.log("Words: " + words.length);
-    console.log(words);
     return words.sort((a, b) => b.length - a.length);
   } catch (err) {
+    console.error('Error loading words:', err);
     throw err;
   }
 }

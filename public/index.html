@@ -1,14 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US" dir="ltr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Electron Censor App</title>
+  <title>Censor App</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 2em;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    textarea {
+      width: 80%;
+      max-width: 600px;
+      height: 120px;
+      padding: 10px;
+      font-size: 1em;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      transition: border-color 0.3s ease;
+    }
+
+    textarea:focus {
+      border-color: #3498db;
+      outline: none;
+    }
+
+    button {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1.2em;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    button:focus {
+      outline: none;
+    }
+
+    #outputText {
+      height: 100px;
+      background-color: #f0f0f0;
+      color: #333;
+      font-style: italic;
+    }
+
+    br {
+      margin-bottom: 10px;
+    }
+  </style>
 </head>
 <body>
   <h1>Censor App</h1>
-  <br>
-  <textarea id="inputText" placeholder="Enter text to censor"></textarea>
+  <textarea id="inputText" placeholder="Enter text to censor">کص</textarea>
   <br>
   <button id="censorButton">Censor</button>
   <br>
