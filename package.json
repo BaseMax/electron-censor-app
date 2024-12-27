@@ -1,0 +1,24 @@
+{
+  "name": "electron-censor-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "dev": "electron . --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "electron": "^33.2.1",
+    "typescript": "^5.7.2"
+  },
+  "dependencies": {
+    "electron-builder": "^25.1.8",
+    "electron-reload": "^2.0.0-alpha.1"
+  }
+}
