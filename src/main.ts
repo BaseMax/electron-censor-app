@@ -30,11 +30,8 @@ app.whenReady().then(() => {
     try {
       const wordsPath = path.join(__dirname, 'public/words');
       console.log('Words Path:', wordsPath);
-      const words = await loadWordsFromDirectory(wordsPath);
-
-      const wordExists = words.includes('کص');
-      console.log('Does "کص" exist in the words?', wordExists);
-      return words;
+      
+      return await loadWordsFromDirectory(wordsPath);
     } catch (error: any) {
       return { error: error.message };
     }
