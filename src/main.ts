@@ -1,42 +1,53 @@
-import { app, BrowserWindow, ipcMain } from "electron";
-import * as path from "path";
-import * as fs from "fs";
+import { app, BrowserWindow, ipcMain } from 'electron';
+import path from 'path';
+import fs from 'fs';
+import { glob } from 'glob';
 
-let mainWindow: BrowserWindow | null = null;
+let mainWindow: BrowserWindow | null;
 
-app.on("ready", () => {
+function createWindow() {
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
-      preload: path.join(__dirname, "preload.js"),
+      preload: path.join(__dirname, 'preload.js'),
+      nodeIntegration: false,
       contextIsolation: true,
     },
   });
 
-  mainWindow.loadFile(path.join(__dirname, "../public/index.html"));
-});
+  mainWindow.loadURL('file://' + path.join(__dirname, '../dist/index.html'));
+}
 
-ipcMain.handle("load-words", async (_, filePath: string) => {
+app.whenReady().then(() => {
+  createWindow();
+
+  ipcMain.handle('load-words', async () => {
     try {
-      const words = fs
-        .readFileSync(filePath, "utf-8")
-        .split("\n")
-        .map((word) => word.trim())
-        .filter((word) => word.length > 0)
-        .sort((a, b) => b.length - a.length);
-  
+      const words = await loadWordsFromDirectory(path.join(__dirname, 'words'));
       return words;
-    } catch (err) {
-      const error = err as Error;
+    } catch (error: any) {
       return { error: error.message };
     }
   });
+});
 
-ipcMain.handle("censor-text", (_, { inputText, words }: { inputText: string; words: string[] }) => {
-  words.forEach((word) => {
-    const censor = "*".repeat(word.length);
-    inputText = inputText.replace(new RegExp(word, "gi"), censor);
-  });
-  return inputText;
+async function loadWordsFromDirectory(directory: string) {
+  try {
+    const files = await glob(path.join(directory, '*.txt'));
+    const words: string[] = [];
+    for (const file of files) {
+      const fileContent = fs.readFileSync(file, 'utf-8');
+      words.push(...fileContent.split('\n').map((line) => line.trim()).filter(Boolean));
+    }
+    return words.sort((a, b) => b.length - a.length);
+  } catch (err) {
+    throw err;
+  }
+}
+
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') {
+    app.quit();
+  }
 });

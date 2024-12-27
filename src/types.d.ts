@@ -1,5 +1,5 @@
 interface API {
-    loadWords(filePath: string): Promise<string[] | { error: string }>;
+    loadWords(): string[];
     censorText(inputText: string, words: string[]): Promise<string>;
 }
 
