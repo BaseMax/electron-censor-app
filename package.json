@@ -2,12 +2,13 @@
   "name": "electron-censor-app",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/main.js",
   "scripts": {
     "start": "electron .",
     "build": "tsc",
     "watch": "tsc --watch",
-    "dev": "electron . --watch"
+    "dev": "electron . --watch",
+    "debug": "electron . --verbose"
   },
   "keywords": [],
   "author": "",

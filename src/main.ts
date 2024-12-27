@@ -18,19 +18,20 @@ app.on("ready", () => {
 });
 
 ipcMain.handle("load-words", async (_, filePath: string) => {
-  try {
-    const words = fs
-      .readFileSync(filePath, "utf-8")
-      .split("\n")
-      .map((word) => word.trim())
-      .filter((word) => word.length > 0)
-      .sort((a, b) => b.length - a.length);
-
-    return words;
-  } catch (error) {
-    return { error: error.message };
-  }
-});
+    try {
+      const words = fs
+        .readFileSync(filePath, "utf-8")
+        .split("\n")
+        .map((word) => word.trim())
+        .filter((word) => word.length > 0)
+        .sort((a, b) => b.length - a.length);
+  
+      return words;
+    } catch (err) {
+      const error = err as Error;
+      return { error: error.message };
+    }
+  });
 
 ipcMain.handle("censor-text", (_, { inputText, words }: { inputText: string; words: string[] }) => {
   words.forEach((word) => {
