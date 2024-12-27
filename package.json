@@ -11,6 +11,19 @@
     "dev": "electron . --watch",
     "debug": "electron . --verbose"
   },
+  "build": {
+    "appId": "com.example.electron-censor-app",
+    "productName": "Electron Censor App",
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "public/icons/icon.ico"
+    },
+    "directories": {
+      "output": "dist"
+    }
+  },
   "keywords": [],
   "author": "Max Base",
   "license": "MIT",
@@ -18,10 +31,10 @@
     "@types/node": "^22.10.2",
     "copyfiles": "^2.4.1",
     "electron": "^33.2.1",
+    "electron-builder": "^25.1.8",
     "typescript": "^5.7.2"
   },
   "dependencies": {
-    "electron-builder": "^25.1.8",
     "electron-reload": "^2.0.0-alpha.1",
     "glob": "^11.0.0"
   }
