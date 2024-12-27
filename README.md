@@ -46,6 +46,24 @@ To run the Electron Censor App locally, follow the steps below:
 
 This will launch the Electron app and open a window where you can enter text to censor.
 
+6. Release and build `.exe` for Windows OS:
+
+   ```bash
+   npm run dist
+   > electron-censor-app@1.0.0 dist
+   > electron-builder
+   
+   • electron-builder  version=25.1.8 os=10.0.26100
+   • loaded configuration  file=package.json ("build" field)
+   • writing effective config  file=dist\builder-effective-config.yaml
+   • executing @electron/rebuild  electronVersion=33.2.1 arch=x64 buildFromSource=false appDir=./
+   • installing native dependencies  arch=x64
+   • completed installing native dependencies
+   • packaging       platform=win32 arch=x64 electron=33.2.1 appOutDir=dist\win-unpacked
+   • downloading     url=https://github.com/electron/electron/releases/download/v33.2.1/electron-v33.2.1-win32-x64.zip
+    size=115 MB parts=8
+   ```
+
 ## Usage
 
 The app loads words to censor from text files (`persian.txt` and `english.txt`).

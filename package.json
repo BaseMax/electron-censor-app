@@ -9,7 +9,9 @@
     "postbuild": "copyfiles \"./public/**/*\" ./dist/",
     "watch": "tsc --watch",
     "dev": "electron . --watch",
-    "debug": "electron . --verbose"
+    "debug": "electron . --verbose",
+    "package": "electron-builder --win",
+    "dist": "electron-builder"
   },
   "build": {
     "appId": "com.example.electron-censor-app",
