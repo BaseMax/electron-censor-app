@@ -1,7 +1,7 @@
 {
   "name": "electron-censor-app",
   "version": "1.0.0",
-  "description": "",
+  "description": "https://github.com/BaseMax/electron-censor-app",
   "main": "dist/main.js",
   "scripts": {
     "start": "electron .",
@@ -12,8 +12,8 @@
     "debug": "electron . --verbose"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Max Base",
+  "license": "MIT",
   "devDependencies": {
     "@types/node": "^22.10.2",
     "copyfiles": "^2.4.1",
