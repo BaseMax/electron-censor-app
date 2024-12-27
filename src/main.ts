@@ -16,7 +16,7 @@ function createWindow() {
     },
   });
 
-  mainWindow.loadURL('file://' + path.join(__dirname, '../dist/index.html'));
+  mainWindow.loadURL('file://' + path.join(__dirname, '/public/index.html'));
 }
 
 app.whenReady().then(() => {
@@ -24,7 +24,9 @@ app.whenReady().then(() => {
 
   ipcMain.handle('load-words', async () => {
     try {
-      const words = await loadWordsFromDirectory(path.join(__dirname, 'words'));
+        const wordsPath = path.join(__dirname, '/public/words/');
+        console.log(wordsPath);
+      const words = await loadWordsFromDirectory(wordsPath);
       return words;
     } catch (error: any) {
       return { error: error.message };
@@ -34,12 +36,20 @@ app.whenReady().then(() => {
 
 async function loadWordsFromDirectory(directory: string) {
   try {
-    const files = await glob(path.join(directory, '*.txt'));
+    const filePath = path.join(directory, '*.txt');
+    console.log(filePath);
+    const files = await glob(filePath);
+    console.log(files);
     const words: string[] = [];
     for (const file of files) {
+        console.log("File: " + file);
       const fileContent = fs.readFileSync(file, 'utf-8');
+      console.log("File Content: " + fileContent);
       words.push(...fileContent.split('\n').map((line) => line.trim()).filter(Boolean));
     }
+
+    console.log("Words: " + words.length);
+    console.log(words);
     return words.sort((a, b) => b.length - a.length);
   } catch (err) {
     throw err;
