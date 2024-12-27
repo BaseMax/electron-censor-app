@@ -38,7 +38,7 @@ To run the Electron Censor App locally, follow the steps below:
    npm run build
    ```
 
-Run the app:
+5. Run the app:
 
    ```bash
    npm run start
