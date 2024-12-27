@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Electron Censor App</title>
+</head>
+<body>
+  <h1>Censor App</h1>
+  <input type="file" id="fileInput" accept=".txt" />
+  <textarea id="inputText" placeholder="Enter text to censor"></textarea>
+  <button id="censorButton">Censor</button>
+  <textarea id="outputText" placeholder="Censored text" readonly></textarea>
+  <script src="../dist/renderer.js"></script>
+</body>
+</html>
